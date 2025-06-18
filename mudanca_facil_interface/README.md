@@ -1,54 +1,31 @@
-# React + TypeScript + Vite
+# Mudança Fácil
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Nosso projeto busca facilitar a contratação e venda de serviços de mudança, conectando clientes e empresas através de um único aplicativo
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Calculo de orçamento
+- Contratação de empresas
+- Planejamento de mudanças
 
-## Expanding the ESLint configuration
+## Instalação
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+O projeto utiliza o node 22.16.0, vite e typescript, cheque a versão do seu node antes de rodar
+(Rodando a interface)
+1. Clone o repositório
+  `git clone https://github.com/Wooggi1/Mudanca_Facil`
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+2. Navegue até o arquivo root
+  `cd mudanca_facil_interface`
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Instale dependências
+  `npm install -y`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+4. Rode um servidor de desenvolvimento
+  `npm run dev`
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## License
+
+MIT (c) 2025 Thiago Silva
+
+<img src="https://i.pinimg.com/originals/18/b2/53/18b25352e70e70f614f7c53adb857eba.gif" alt="nerdada sinistra" width="100">
