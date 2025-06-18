@@ -1,4 +1,7 @@
 import React,{ useState } from "react";
+import "../Login/style.css"
+import Button from "../../components/Button/Button";
+import Input from "../../components/Input/Input";
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -20,33 +23,37 @@ function Login() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label>
-          <input 
-            type="text"
-            id="email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}  
-          />
-        </div>
+      <div className="login-container">
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="input-div">
+            <label>Email</label>
+            <Input
+              type="text"
+              id='email'
+              name="email"
+              value={email}
+              onChange={handleEmailChange}
+              placeholder="Email"
+            />
+          </div>
 
-        <div>
-          <label>Senha</label>
-          <input 
-            type="password"
-            id="email"
-            name="email"
-            value={senha}
-            onChange={handleSenhaChange}  
-          />
-        </div>
+          <div className="input-div">
+            <label>Senha</label>
+            <Input
+              type="password"
+              id='senha'
+              name="senha"
+              value={senha}
+              onChange={handleSenhaChange}
+              placeholder="Senha"
+            />
+          </div>
 
-        <button type="submit">Enviar</button>
-      </form>
+          <Button type="submit">Enviar</Button>
+        </form>
+      </div>
     </>
-  )
+  );
 }
 
 export default Login;

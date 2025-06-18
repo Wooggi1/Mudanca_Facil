@@ -1,0 +1,29 @@
+@import '../../styles/global.css';
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-top: 10px solid var(--light-green);
+  border-bottom: 10px solid var(--light-green);
+  gap: 0.75rem;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 250px;
+}
+
+.input-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+

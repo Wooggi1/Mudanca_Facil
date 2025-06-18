@@ -1,27 +1,16 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* Import fonts (place at the top of your CSS file) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
-  color-scheme: light green;
+/* Root styles */
+:root {
+  --font-primary: 'Raleway', sans-serif;
+  --font-secondary: 'Poppins', sans-serif;
+
+  font-family: var(--font-primary);
   color: black;
   background-color: white;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-}
-
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
