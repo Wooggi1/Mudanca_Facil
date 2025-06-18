@@ -7,6 +7,8 @@ function Cadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [tipoUsuario, setTipoUsuario] = useState<'cliente' | 'empresa'>('cliente');
+  const handleTipoChange = (e: React.ChangeEvent<HTMLInputElement>) => setTipoUsuario(e.target.value as 'cliente' | 'empresa');
 
   const handleNomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNome(e.target.value);
@@ -23,7 +25,7 @@ function Cadastro() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // enviar dados para a API
-    console.log("logando")
+    console.log("Cadastrando:", { nome, email, senha, tipoUsuario })
   }
 
   return (
@@ -64,6 +66,29 @@ function Cadastro() {
               onChange={handleSenhaChange}
               placeholder="Senha"
             />
+          </div>
+
+          <div className="input-div radio-group">
+            <label>
+              <input
+                type="radio"
+                name="tipoUsuario"
+                value="cliente"
+                checked={tipoUsuario === 'cliente'}
+                onChange={handleTipoChange}
+              />
+              Cliente
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="tipoUsuario"
+                value="empresa"
+                checked={tipoUsuario === 'empresa'}
+                onChange={handleTipoChange}
+              />
+              Empresa
+            </label>
           </div>
 
           <Button type="submit">Cadastrar</Button>
