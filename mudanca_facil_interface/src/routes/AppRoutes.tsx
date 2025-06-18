@@ -1,11 +1,14 @@
 import { Routes, Route } from "react-router-dom";
+import Login from "../pages/Login/Login";
 
 function AppRoutes() {
-  <Routes>
-    <Route path="/" />
-    <Route path="login" />
-    <Route path="*" /> // pagina not found
-  </Routes>
+  return(
+    <Routes>
+      <Route path="/" />
+      <Route path="login" element={<Login />}/>
+      <Route path="*" /> // pagina not found
+    </Routes>
+  )
 }
 
 export default AppRoutes
