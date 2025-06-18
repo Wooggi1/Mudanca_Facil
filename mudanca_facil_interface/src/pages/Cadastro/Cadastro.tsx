@@ -1,11 +1,16 @@
 import React,{ useState } from "react";
-import "../Login/style.css"
+import "../Cadastro/style.css"
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 
-function Login() {
+function Cadastro() {
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+
+  const handleNomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNome(e.target.value);
+  }
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -25,6 +30,18 @@ function Login() {
     <>
       <div className="login-container">
         <form onSubmit={handleSubmit} className="login-form">
+          <div className="input-div">
+            <label>Nome</label>
+            <Input
+              type="text"
+              id='nome'
+              name="nome"
+              value={nome}
+              onChange={handleNomeChange}
+              placeholder="Nome"
+            />
+          </div>
+
           <div className="input-div">
             <label>Email</label>
             <Input
@@ -49,11 +66,11 @@ function Login() {
             />
           </div>
 
-          <Button type="submit">Logar</Button>
+          <Button type="submit">Cadastrar</Button>
         </form>
       </div>
     </>
   );
 }
 
-export default Login;
+export default Cadastro;
