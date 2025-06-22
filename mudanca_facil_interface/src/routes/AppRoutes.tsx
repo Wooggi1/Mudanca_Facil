@@ -2,11 +2,12 @@ import { Routes, Route } from "react-router-dom";
 import Login from "../pages/Login/Login";
 import RecuperarSenha from "../pages/RecuperarSenha/RecuperarSenha";
 import Cadastro from "../pages/Cadastro/Cadastro";
+import Home from "../pages/Home/Home";
 
 function AppRoutes() {
   return(
     <Routes>
-      <Route path="/" />
+      <Route path="/" element={<Home />}/>
       <Route path="login" element={<Login />}/>
       <Route path="recuperar" element={<RecuperarSenha />}/>
       <Route path="cadastro" element={<Cadastro />}/>

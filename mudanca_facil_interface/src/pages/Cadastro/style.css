@@ -33,8 +33,7 @@
   margin-top: 0.5rem;
   margin-left: 2.5rem;
 
-  /* Override .input-div styles */
   justify-content: flex-start;
   align-items: center;
-  flex-direction: row; /* already set by display:flex */
+  flex-direction: row; 
 }

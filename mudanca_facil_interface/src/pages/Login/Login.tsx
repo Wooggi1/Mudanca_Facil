@@ -2,6 +2,7 @@ import React,{ useState } from "react";
 import "../Login/style.css"
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
+import Navbar from "../../components/Navbar/Navbar";
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -23,6 +24,7 @@ function Login() {
 
   return (
     <>
+      <Navbar />
       <div className="login-container">
         <form onSubmit={handleSubmit} className="login-form">
           <div className="input-div">
