@@ -2,12 +2,16 @@ import React,{ useState } from "react";
 import "../Cadastro/style.css"
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
+import ModalCadastroEmpresa from "../../components/modals/CadastroEmpresa/ModalCadastroEmpresa";
+import Navbar from "../../components/Navbar/Navbar";
 
 function Cadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [tipoUsuario, setTipoUsuario] = useState<'cliente' | 'empresa'>('cliente');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleTipoChange = (e: React.ChangeEvent<HTMLInputElement>) => setTipoUsuario(e.target.value as 'cliente' | 'empresa');
 
   const handleNomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,12 +28,26 @@ function Cadastro() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // enviar dados para a API
-    console.log("Cadastrando:", { nome, email, senha, tipoUsuario })
-  }
+
+    if (tipoUsuario === 'empresa') {
+      setIsModalOpen(true);
+    } else {
+      handleFinalizarCadastro(); 
+    }
+  };
+
+  const handleFinalizarCadastro = () => {
+    // Aqui você envia os dados para a API
+    console.log("Cadastrando:", { nome, email, senha, tipoUsuario });
+
+    // Após cadastro, você pode:
+    setIsModalOpen(false);
+    alert("Cadastro realizado com sucesso!");
+  };
 
   return (
     <>
+      <Navbar />
       <div className="login-container">
         <form onSubmit={handleSubmit} className="login-form">
           <div className="input-div">
@@ -94,6 +112,12 @@ function Cadastro() {
           <Button type="submit">Cadastrar</Button>
         </form>
       </div>
+
+      <ModalCadastroEmpresa
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleFinalizarCadastro}
+      />
     </>
   );
 }
