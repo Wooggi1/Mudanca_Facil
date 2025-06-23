@@ -10,15 +10,18 @@ type ButtonProps = {
 const Button: React.FC<ButtonProps> = ({
   children,
   type = 'button',
+  onClick,  
 }) => {
   return (
     <button
       type={type}
       className='custom-button'
+      onClick={onClick} 
     >
       {children}
     </button>
   );
 };
+
 
 export default Button;

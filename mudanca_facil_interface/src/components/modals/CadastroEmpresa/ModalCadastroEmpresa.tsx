@@ -2,11 +2,12 @@ import { useState } from "react";
 import "../CadastroEmpresa/style.css";
 import Modal from "../ModalPadrao/TemplateModal";
 import Button from "../../Button/Button";
+import type Dados from "../../../model/empresa";
 
 type CadastroEmpresaProps = {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: (dados?: Dados) => void;
 };
 
 function ModalCadastroEmpresa({
@@ -27,6 +28,22 @@ function ModalCadastroEmpresa({
   const [inicio, setInicio] = useState("");
   const [fim, setFim] = useState("");
   console.log("modal aberto");
+
+  const handleConfirmarCadastro = () => {
+  console.log("teste")
+  const dados = {
+    porte,
+    RA,
+    casaApt,
+    pequenoPreco,
+    medioPreco,
+    grandePreco,
+    inicio,
+    fim,
+  };
+
+  onConfirm(dados);
+};
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -140,7 +157,7 @@ function ModalCadastroEmpresa({
         </div>
 
         <div className="button-centralizado">
-          <Button onClick={onConfirm}>Completar cadastro</Button>
+          <Button onClick={handleConfirmarCadastro}>Completar cadastro</Button>
         </div>
       </div>
     </Modal>

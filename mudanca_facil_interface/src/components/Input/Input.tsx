@@ -9,6 +9,7 @@ type InputProps = {
   placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
+  required?: boolean
 };
 
 const Input: React.FC<InputProps> = ({
@@ -18,6 +19,7 @@ const Input: React.FC<InputProps> = ({
   value,
   placeholder = '',
   onChange,
+  required = false,
 }) => {
   return (
       <input className='custom-input'
@@ -27,6 +29,7 @@ const Input: React.FC<InputProps> = ({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        required={required}
       />
   );
 };

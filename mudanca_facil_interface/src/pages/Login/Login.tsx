@@ -36,6 +36,7 @@ function Login() {
               value={email}
               onChange={handleEmailChange}
               placeholder="Email"
+              required={true}
             />
           </div>
 
@@ -48,6 +49,7 @@ function Login() {
               value={senha}
               onChange={handleSenhaChange}
               placeholder="Senha"
+              required={true}
             />
           </div>
 

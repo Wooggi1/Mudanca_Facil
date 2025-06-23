@@ -36,12 +36,16 @@ function Cadastro() {
     }
   };
 
-  const handleFinalizarCadastro = () => {
+  const handleFinalizarCadastro = (dados?: any) => {
+    setIsModalOpen(false);
     // Aqui você envia os dados para a API
     console.log("Cadastrando:", { nome, email, senha, tipoUsuario });
-
+    
+    if (tipoUsuario === 'empresa') {
+      console.log("Cadastrando:", dados)
+    }
     // Após cadastro, você pode:
-    setIsModalOpen(false);
+    
     alert("Cadastro realizado com sucesso!");
   };
 
@@ -59,6 +63,7 @@ function Cadastro() {
               value={nome}
               onChange={handleNomeChange}
               placeholder="Nome"
+              required={true}
             />
           </div>
 
@@ -71,6 +76,7 @@ function Cadastro() {
               value={email}
               onChange={handleEmailChange}
               placeholder="Email"
+              required={true}
             />
           </div>
 
@@ -83,6 +89,7 @@ function Cadastro() {
               value={senha}
               onChange={handleSenhaChange}
               placeholder="Senha"
+              required={true}
             />
           </div>
 
@@ -94,6 +101,7 @@ function Cadastro() {
                 value="cliente"
                 checked={tipoUsuario === 'cliente'}
                 onChange={handleTipoChange}
+                required={true}
               />
               Cliente
             </label>

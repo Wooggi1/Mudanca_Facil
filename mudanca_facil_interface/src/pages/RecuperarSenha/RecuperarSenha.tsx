@@ -31,6 +31,7 @@ function RecuperarSenha() {
               value={email}
               onChange={handleEmailChange}
               placeholder="Email"
+              required={true}
             />
           </div>
 
