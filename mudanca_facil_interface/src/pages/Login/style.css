@@ -27,3 +27,14 @@
   align-items: center;
 }
 
+.forget-password-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.forget-password-text {
+  text-decoration: none;
+  color: var(--dark-green);
+  font-size: 15px;
+}

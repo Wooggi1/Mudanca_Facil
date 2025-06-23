@@ -3,6 +3,7 @@ import "../Login/style.css"
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import Navbar from "../../components/Navbar/Navbar";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -51,6 +52,10 @@ function Login() {
               placeholder="Senha"
               required={true}
             />
+          </div>
+
+          <div className="forget-password-container">
+           <Link to="/recuperar" className="forget-password-text">Esqueceu sua Senha?</Link>
           </div>
 
           <Button type="submit">Logar</Button>
