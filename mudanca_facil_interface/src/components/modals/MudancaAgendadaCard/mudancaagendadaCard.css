@@ -1,0 +1,21 @@
+.move-card {
+    border: 2px solid #ccc;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 2rem;
+    width: 80%;
+    max-width: 400px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  .move-card p {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  .card-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
