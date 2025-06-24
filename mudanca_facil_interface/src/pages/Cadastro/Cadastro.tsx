@@ -1,22 +1,25 @@
-import React,{ useState } from "react";
-import "../Cadastro/style.css"
+import React, { useState } from "react";
+import "../Cadastro/style.css";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import ModalCadastroEmpresa from "../../components/modals/CadastroEmpresa/ModalCadastroEmpresa";
 import Navbar from "../../components/Navbar/Navbar";
 
 function Cadastro() {
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [tipoUsuario, setTipoUsuario] = useState<'cliente' | 'empresa'>('cliente');
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [tipoUsuario, setTipoUsuario] = useState<"cliente" | "empresa">(
+    "cliente"
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleTipoChange = (e: React.ChangeEvent<HTMLInputElement>) => setTipoUsuario(e.target.value as 'cliente' | 'empresa');
+  const handleTipoChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTipoUsuario(e.target.value as "cliente" | "empresa");
 
   const handleNomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNome(e.target.value);
-  }
+  };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -29,10 +32,10 @@ function Cadastro() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (tipoUsuario === 'empresa') {
+    if (tipoUsuario === "empresa") {
       setIsModalOpen(true);
     } else {
-      handleFinalizarCadastro(); 
+      handleFinalizarCadastro();
     }
   };
 
@@ -40,12 +43,12 @@ function Cadastro() {
     setIsModalOpen(false);
     // Aqui você envia os dados para a API
     console.log("Cadastrando:", { nome, email, senha, tipoUsuario });
-    
-    if (tipoUsuario === 'empresa') {
-      console.log("Cadastrando:", dados)
+
+    if (tipoUsuario === "empresa") {
+      console.log("Cadastrando:", dados);
     }
     // Após cadastro, você pode:
-    
+
     alert("Cadastro realizado com sucesso!");
   };
 
@@ -58,7 +61,7 @@ function Cadastro() {
             <label>Nome</label>
             <Input
               type="text"
-              id='nome'
+              id="nome"
               name="nome"
               value={nome}
               onChange={handleNomeChange}
@@ -71,7 +74,7 @@ function Cadastro() {
             <label>Email</label>
             <Input
               type="text"
-              id='email'
+              id="email"
               name="email"
               value={email}
               onChange={handleEmailChange}
@@ -84,7 +87,7 @@ function Cadastro() {
             <label>Senha</label>
             <Input
               type="password"
-              id='senha'
+              id="senha"
               name="senha"
               value={senha}
               onChange={handleSenhaChange}
@@ -94,27 +97,24 @@ function Cadastro() {
           </div>
 
           <div className="input-div radio-group">
-            <label>
-              <input
-                type="radio"
-                name="tipoUsuario"
-                value="cliente"
-                checked={tipoUsuario === 'cliente'}
-                onChange={handleTipoChange}
-                required={true}
-              />
-              Cliente
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="tipoUsuario"
-                value="empresa"
-                checked={tipoUsuario === 'empresa'}
-                onChange={handleTipoChange}
-              />
-              Empresa
-            </label>
+            <input
+              type="radio"
+              name="tipoUsuario"
+              value="cliente"
+              checked={tipoUsuario === "cliente"}
+              onChange={handleTipoChange}
+              required={true}
+            />
+            <span>Cliente</span>
+
+            <input
+              type="radio"
+              name="tipoUsuario"
+              value="empresa"
+              checked={tipoUsuario === "empresa"}
+              onChange={handleTipoChange}
+            />
+            <span>Empresa</span>
           </div>
 
           <Button type="submit">Cadastrar</Button>

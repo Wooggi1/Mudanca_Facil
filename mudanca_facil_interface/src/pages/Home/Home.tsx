@@ -1,8 +1,12 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Button from "../../components/Button/Button";
 import './style.css';
+import { useState } from "react";
+import SolicitarMudancaModal from "../../components/modals/SolicitarMudanca/SolicitarMudaca";
 
 function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
       <Navbar />
@@ -11,9 +15,14 @@ function Home() {
         
         <div className="empty-state">
           <p className="empty-message">Nenhuma mudança encontrada</p>
-          <Button onClick={() => console.log("Solicitar orçamento clicado")}>
+          <Button onClick={() => setIsModalOpen(true)}>
             Solicitar <br /> orçamento
           </Button>
+
+          <SolicitarMudancaModal 
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
         </div>
       </div>
     </>

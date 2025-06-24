@@ -5,9 +5,10 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  className?: string
 };
 
-export default function Modal({ isOpen, onClose, children }: Props) {
+export default function Modal({ isOpen, onClose, children, className }: Props) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -28,7 +29,7 @@ export default function Modal({ isOpen, onClose, children }: Props) {
 
   return (
     <div className="modal-container" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className={`modal-content ${className || ''}`} onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>
