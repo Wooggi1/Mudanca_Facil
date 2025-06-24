@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from "../../Button/Button";
-import './ScheduledMoveCard.css';
+import '../MudancaAgendadaCard/mudancaagendadaCard.css';
 
 type ScheduledMoveCardProps = {
   date: string;

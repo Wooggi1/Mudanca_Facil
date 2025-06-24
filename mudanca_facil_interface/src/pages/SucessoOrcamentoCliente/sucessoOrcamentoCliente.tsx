@@ -1,7 +1,6 @@
-import React from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Button from '../../components/Button/Button';
-import './SucessoOrcamento.css';
+import '../SucessoOrcamentoCliente/sucessoOrcamentoCliente.css';
 
 function SucessoOrcamento() {
   const handleAprovar = () => {
