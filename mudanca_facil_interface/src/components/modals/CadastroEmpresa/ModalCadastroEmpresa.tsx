@@ -2,12 +2,12 @@ import { useState } from "react";
 import "../CadastroEmpresa/style.css";
 import Modal from "../ModalPadrao/TemplateModal";
 import Button from "../../Button/Button";
-import type Dados from "../../../model/empresa";
+import type { CadastroEmpresaData } from "../../../model/types";
 
 type CadastroEmpresaProps = {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (dados?: Dados) => void;
+  onConfirm: (dados?: CadastroEmpresaData) => void;
 };
 
 function ModalCadastroEmpresa({

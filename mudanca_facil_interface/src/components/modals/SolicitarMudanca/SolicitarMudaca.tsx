@@ -1,9 +1,9 @@
 import Modal from "../ModalPadrao/TemplateModal";
-import type ModalProps from "../../../model/modalProps";
+import type { ModalSolicitarMudanca } from '../../../model/types'
 import { useState } from "react";
 import "../SolicitarMudanca/style.css";
 
-function SolicitarMudancaModal({ isOpen, onClose }: ModalProps) {
+function SolicitarMudancaModal({ isOpen, onClose, onConfirm }: ModalSolicitarMudanca) {
   const [origem, setOrigem] = useState("");
   const [destino, setDestino] = useState("");
   const [data, setData] = useState<Date | null>(null);
@@ -32,6 +32,7 @@ function SolicitarMudancaModal({ isOpen, onClose }: ModalProps) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const dados = {
+      id: Date.now().toString() + Math.random().toString(16).slice(2),
       origem,
       destino,
       data,
@@ -39,6 +40,8 @@ function SolicitarMudancaModal({ isOpen, onClose }: ModalProps) {
       tipoResidencia,
       itemSelecionado,
     };
+
+    onConfirm(dados)
     console.log("Solicitação de mudança:", dados);
     // Aqui você pode enviar os dados para uma API, por exemplo
   }

@@ -3,9 +3,19 @@ import Button from "../../components/Button/Button";
 import './style.css';
 import { useState } from "react";
 import SolicitarMudancaModal from "../../components/modals/SolicitarMudanca/SolicitarMudaca";
+import type { SolicitarMudancaData } from "../../model/types";
+import MudancaAgendadaCard from "../../components/modals/MudancaAgendadaCard/mudancaAgendadaCard";
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mudancas, setMudancas] = useState<SolicitarMudancaData[]>([]);
+
+  const adicionarMudanca = (novaMudanca: SolicitarMudancaData) => {
+    if (!novaMudanca) return;
+
+    setMudancas(prev => [...prev, novaMudanca]);
+    setIsModalOpen(false)
+  };
 
   return (
     <>
@@ -14,7 +24,23 @@ function Home() {
         <h2 className="title">Mudança fácil</h2>
         
         <div className="empty-state">
-          <p className="empty-message">Nenhuma mudança encontrada</p>
+          {mudancas.length === 0 ? (
+            <p className="empty-message">Nenhuma mudança encontrada</p>
+          ) : (
+            <ul className="mudanca-list">
+              {mudancas.map((mudanca) => (
+                <MudancaAgendadaCard 
+                  key={mudanca.id}               // chave única para React
+                  origem={mudanca.origem}
+                  destino={mudanca.destino}
+                  data={mudanca.data ?? new Date()}
+                  horario={mudanca.horario}
+                  tipoResidencia={mudanca.tipoResidencia}
+                  itemSelecionado={mudanca.itemSelecionado}
+                />
+              ))}
+            </ul>
+          )}
           <Button onClick={() => setIsModalOpen(true)}>
             Solicitar <br /> orçamento
           </Button>
@@ -22,6 +48,7 @@ function Home() {
           <SolicitarMudancaModal 
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
+            onConfirm={adicionarMudanca}
           />
         </div>
       </div>

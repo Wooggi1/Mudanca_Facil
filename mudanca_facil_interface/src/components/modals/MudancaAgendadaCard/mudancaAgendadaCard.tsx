@@ -3,31 +3,36 @@ import Button from "../../Button/Button";
 import '../MudancaAgendadaCard/style.css';
 
 type MudancaAgendadaCardProps = {
-  date: string;
-  company: string;
-  itemCount: number;
-  price: number;
-  onDetailsClick: () => void;
+  origem: string;
+  destino: string;
+  data: Date;
+  horario: string;
+  tipoResidencia: string;
+  itemSelecionado: string;
 };
 
 const MudancaAgendadaCard: React.FC<MudancaAgendadaCardProps> = ({
-  date,
-  company,
-  itemCount,
-  price,
-  onDetailsClick,
+  origem,
+  destino,
+  data,
+  horario,
+  tipoResidencia,
+  itemSelecionado,
 }) => {
   return (
     <div className="move-card">
-      <p><strong>Mudança agendada para {date}</strong></p>
-      <p>Empresa responsável: {company}</p>
-      <p>{itemCount} itens</p>
-      <p><strong>Valor: R$ {price.toFixed(2)}</strong></p>
+      <p><strong>Mudança agendada</strong></p>
+      <p><strong>Data:</strong> {data.toLocaleDateString()} às {horario}</p>
+      <p><strong>Origem:</strong> {origem}</p>
+      <p><strong>Destino:</strong> {destino}</p>
+      <p><strong>Residência:</strong> {tipoResidencia}</p>
+      <p><strong>Itens:</strong> {itemSelecionado}</p>
 
       <div className="card-button-wrapper">
-        <Button onClick={onDetailsClick}>
+     {/*<Button onClick={onDetailsClick}>
           Conferir detalhes
-        </Button>
+        </Button> 
+        */}
       </div>
     </div>
   );
