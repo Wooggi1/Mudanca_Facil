@@ -1,6 +1,13 @@
-describe('template spec', () => {
+describe('Marcar uma mudanca', () => {
   it('passes', () => {
     cy.visit('http://localhost:5173')
     cy.get('.custom-button').click()
+    cy.get('#origem').type('Candangolândia')
+    cy.get('#destino').type('Taguatinga')
+    cy.get('#data').type('2025-06-26')
+    cy.get('#horario').type('12:00')
+    cy.get('.radio-div > :nth-child(1) > input').click()
+    cy.get('#itens').select('moveis')
+    cy.get('.submit-button').click()
   })
 })
