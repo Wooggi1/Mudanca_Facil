@@ -128,6 +128,7 @@ function SolicitarMudancaModal({ isOpen, onClose, onConfirm }: ModalSolicitarMud
             <option value="moveis">Móveis</option>
             <option value="eletrodomesticos">Eletrodomésticos</option>
             <option value="caixas">Caixas</option>
+            <option value="itens_diversos">Itens Diversos</option>
           </select>
         </div>
 
