@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from "../../Button/Button";
-import '../MudancaAgendadaCard/mudancaagendadaCard.css';
+import '../MudancaAgendadaCard/style.css';
 
-type ScheduledMoveCardProps = {
+type MudancaAgendadaCardProps = {
   date: string;
   company: string;
   itemCount: number;
@@ -10,7 +10,7 @@ type ScheduledMoveCardProps = {
   onDetailsClick: () => void;
 };
 
-const ScheduledMoveCard: React.FC<ScheduledMoveCardProps> = ({
+const MudancaAgendadaCard: React.FC<MudancaAgendadaCardProps> = ({
   date,
   company,
   itemCount,
@@ -33,4 +33,4 @@ const ScheduledMoveCard: React.FC<ScheduledMoveCardProps> = ({
   );
 };
 
-export default ScheduledMoveCard;
+export default MudancaAgendadaCard;

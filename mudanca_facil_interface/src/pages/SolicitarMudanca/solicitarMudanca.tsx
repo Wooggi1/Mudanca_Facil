@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Button from '../../components/Button/Button';
-import './RequestMove.css';
+import '../SolicitarMudanca/style.css';
 
 function RequestMove() {
   const [origin, setOrigin] = useState('');

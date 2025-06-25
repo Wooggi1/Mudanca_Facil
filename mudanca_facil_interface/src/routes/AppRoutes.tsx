@@ -12,6 +12,7 @@ function AppRoutes() {
       <Route path="recuperar" element={<RecuperarSenha />}/>
       <Route path="cadastro" element={<Cadastro />}/>
       <Route path="*" /> // pagina not found
+      <Route path="detalhes" element={}/>
     </Routes>
   )
 }

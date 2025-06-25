@@ -1,6 +1,6 @@
 import Navbar from '../../components/Navbar/Navbar';
 import Button from '../../components/Button/Button';
-import '../DetalhesMudancaCliente/detalhesMudancaCliente.css';
+import '../DetalhesMudancaCliente/style.css';
 
 function DetalhesMudancaCliente() {
   const handleCancelar = () => {

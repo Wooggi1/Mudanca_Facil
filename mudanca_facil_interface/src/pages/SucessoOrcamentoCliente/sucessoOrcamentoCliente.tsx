@@ -1,6 +1,6 @@
 import Navbar from '../../components/Navbar/Navbar';
 import Button from '../../components/Button/Button';
-import '../SucessoOrcamentoCliente/sucessoOrcamentoCliente.css';
+import '../SucessoOrcamentoCliente/style.css';
 
 function SucessoOrcamento() {
   const handleAprovar = () => {
