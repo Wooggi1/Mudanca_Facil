@@ -31,17 +31,31 @@ function ModalCadastroEmpresa({
 
   const handleConfirmarCadastro = () => {
   console.log("teste")
-  const dados = {
-    porte,
-    RA,
-    casaApt,
-    pequenoPreco,
-    medioPreco,
-    grandePreco,
-    inicio,
-    fim,
-  };
 
+  const inicioDate = new Date(`1970-01-01T${inicio}:00`);
+  const fimDate = new Date(`1970-01-01T${fim}:00`);
+  
+  const dados = {
+    porte: porte.toUpperCase(), 
+    casaApt,
+    horarioInicioDisponibilidade: {
+      hour: inicioDate.getHours(),
+      minute: inicioDate.getMinutes(),
+      second: 0,
+      nano: 0
+    },
+    horarioFimDisponibilidade: {
+      hour: fimDate.getHours(),
+      minute: fimDate.getMinutes(),
+      second: 0,
+      nano: 0
+    },
+    raAtuacao: RA,
+    mediaPrecoMudancaPequena: pequenoPreco,
+    mediaPrecoMudancaMedia: medioPreco,
+    mediaPrecoMudancaGrande: grandePreco
+  };
+  console.log(dados)
   onConfirm(dados);
 };
 

@@ -1,13 +1,23 @@
-export interface CadastroEmpresaData {
-  porte: string;
-  RA: string;
+export type CadastroEmpresaData = {
+  raAtuacao: string;
   casaApt: string;
-  pequenoPreco: number;
-  medioPreco: number;
-  grandePreco: number;
-  inicio: string;
-  fim: string;
-}
+  mediaPrecoMudancaPequena: number;
+  mediaPrecoMudancaMedia: number;
+  mediaPrecoMudancaGrande: number;
+  porte: string;
+  horarioInicioDisponibilidade: {
+    hour: number;
+    minute: number;
+    second: number;
+    nano: number;
+  };
+  horarioFimDisponibilidade: {
+    hour: number;
+    minute: number;
+    second: number;
+    nano: number;
+  };
+};
 
 export interface SolicitarMudancaData {
   id: string,

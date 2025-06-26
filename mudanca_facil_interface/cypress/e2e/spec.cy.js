@@ -1,7 +1,10 @@
 describe('Marcar uma mudanca', () => {
   it('passes', () => {
     cy.visit('http://localhost:5173')
+    cy.get('#email').type('string')
+    cy.get('#senha').type('string')
     cy.get('.custom-button').click()
+    cy.get('.empty-state > .custom-button').click()
     cy.get('#origem').type('Candangolândia')
     cy.get('#destino').type('Taguatinga')
     cy.get('#data').type('2025-06-26')
