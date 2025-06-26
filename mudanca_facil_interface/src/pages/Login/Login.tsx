@@ -3,11 +3,17 @@ import "../Login/style.css"
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import Navbar from "../../components/Navbar/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [loading, setLoading] = useState(false)
+  const { signIn } = useAuth()
+
+  const navigate = useNavigate();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -17,10 +23,22 @@ function Login() {
     setSenha(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // enviar dados para a API
-    console.log("logando")
+    const data = {
+      email,
+      senha
+    }
+
+    setLoading(true)
+    const success = await signIn(data);
+    setLoading(false)
+
+    if (success) {
+     navigate('/')
+    } else {
+      toast.error("Erro ao Logar, verifique credenciais")
+    }
   }
 
   return (
@@ -58,7 +76,7 @@ function Login() {
            <Link to="/recuperar" className="forget-password-text">Esqueceu sua Senha?</Link>
           </div>
 
-          <Button type="submit">Logar</Button>
+          <Button type="submit" loading={loading}>Logar</Button>
         </form>
       </div>
     </>

@@ -4,18 +4,23 @@ import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import ModalCadastroEmpresa from "../../components/modals/CadastroEmpresa/ModalCadastroEmpresa";
 import Navbar from "../../components/Navbar/Navbar";
+import { useAuth, type SignUpClienteProps, type SignUpEmpresaProps } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Cadastro() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [tipoUsuario, setTipoUsuario] = useState<"cliente" | "empresa">(
+  const [type, setType] = useState<"cliente" | "empresa">(
     "cliente"
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false)
+  const { signUp, signIn } = useAuth()
+  const navigate = useNavigate()
 
   const handleTipoChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setTipoUsuario(e.target.value as "cliente" | "empresa");
+    setType(e.target.value as "cliente" | "empresa");
 
   const handleNomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNome(e.target.value);
@@ -32,24 +37,46 @@ function Cadastro() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (tipoUsuario === "empresa") {
+    if (type === "empresa") {
       setIsModalOpen(true);
     } else {
       handleFinalizarCadastro();
     }
   };
 
-  const handleFinalizarCadastro = (dados?: any) => {
+  async function handleFinalizarCadastro(dados?: any) {
     setIsModalOpen(false);
-    // Aqui você envia os dados para a API
-    console.log("Cadastrando:", { nome, email, senha, tipoUsuario });
+    setLoading(true)
 
-    if (tipoUsuario === "empresa") {
-      console.log("Cadastrando:", dados);
+    if (type === "empresa") {
+      const empresaData: SignUpEmpresaProps = {
+        nome,
+        email,
+        senha,
+        type,
+        ...dados
+      }
+
+      await signUp(empresaData)
+
+    } else {
+      const clienteData: SignUpClienteProps = {
+        nome,
+        email,
+        senha,
+        type,
+      }
+
+      await signUp(clienteData)
     }
-    // Após cadastro, você pode:
-
-    alert("Cadastro realizado com sucesso!");
+    const loginData = {
+      email,
+      senha
+    }
+    setLoading(false)
+    signIn(loginData)
+    navigate('/')
+    return;
   };
 
   return (
@@ -101,7 +128,7 @@ function Cadastro() {
               type="radio"
               name="tipoUsuario"
               value="cliente"
-              checked={tipoUsuario === "cliente"}
+              checked={type === "cliente"}
               onChange={handleTipoChange}
               required={true}
             />
@@ -111,13 +138,13 @@ function Cadastro() {
               type="radio"
               name="tipoUsuario"
               value="empresa"
-              checked={tipoUsuario === "empresa"}
+              checked={type === "empresa"}
               onChange={handleTipoChange}
             />
             <span>Empresa</span>
           </div>
 
-          <Button type="submit">Cadastrar</Button>
+          <Button type="submit" loading={loading}>Cadastrar</Button>
         </form>
       </div>
 

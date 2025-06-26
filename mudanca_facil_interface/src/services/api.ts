@@ -1,14 +1,15 @@
 import axios, { AxiosError } from "axios";
 import { parseCookies, destroyCookie } from "nookies";
+import { AuthTokenError } from "./errors/AuthErrorToken";
 
 // Função para configurar uma instância do Axios com autenticação via token
-export function setupAPIClient(ctx = undefined) { // TODO: adicionar signout como parametro
+export function setupAPIClient(ctx = undefined, signOut?: () => void) { // TODO: adicionar signout como parametro
   // Lê os cookies (no lado do servidor ou cliente)
   const cookies = parseCookies(ctx);
 
   // Cria a instância do Axios com configurações padrão
   const api = axios.create({
-    baseURL: "", // Defina aqui a URL base da sua API
+    baseURL: "https://mudanca-facil-api.onrender.com",
     headers: {
       // Se houver um token nos cookies, adiciona no header Authorization
       Authorization: cookies['@auth.token'] ? `Bearer ${cookies['@auth.token']}` : ""
@@ -19,7 +20,6 @@ export function setupAPIClient(ctx = undefined) { // TODO: adicionar signout com
   // Interceptador de respostas para lidar com erros
   api.interceptors.response.use(
     (response) => {
-      // Se a resposta estiver OK, apenas retorna ela normalmente
       return response; 
     },
     (error: AxiosError) => {
@@ -27,14 +27,13 @@ export function setupAPIClient(ctx = undefined) { // TODO: adicionar signout com
       if (error.response?.status === 401) {
         // Se estiver no lado do cliente (navegador)
         if (typeof window !== "undefined") {
-          // Executa a função de logout, se fornecida
-          //if (signOut) {
-          //  signOut();
-          //}
+          if (signOut) {
+            signOut();
+          }
         } else {
           // Se estiver no lado do servidor, remove o cookie de autenticação
           destroyCookie(ctx, "@auth.token"); 
-          return; // TODO: Retornar um erro de autenticação aqui futuramente
+          return Promise.reject(new AuthTokenError()); // TODO: Retornar um erro de autenticação aqui futuramente
         }
       }
 
@@ -43,6 +42,5 @@ export function setupAPIClient(ctx = undefined) { // TODO: adicionar signout com
     }
   );
 
-  // Retorna a instância do Axios configurada
   return api;
 }

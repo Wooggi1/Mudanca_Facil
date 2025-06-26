@@ -1,10 +1,10 @@
 import { setupAPIClient } from "./api";
-// TODO: importar contexto quando for feito
+import { useAuth } from "../context/AuthContext";
 
 export const api = setupAPIClient(); 
 
 // hook pra lidar com signout futuramente
 export function useAPIClient() {
-  // TODO: importar signOut quando existir
-  return setupAPIClient(undefined); // TODO: retornar `signOut` alem de undefined
+  const { signOut } = useAuth()
+  return setupAPIClient(undefined, signOut); // TODO: retornar `signOut` alem de undefined
 }
