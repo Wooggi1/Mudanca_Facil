@@ -1,19 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Button from '../../components/Button/Button';
 import '../SolicitarMudanca/style.css';
+import { api } from '../../services/apiClient';
 
 function RequestMove() {
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [housingType, setHousingType] = useState('');
-  const [selectedItems, setSelectedItems] = useState('');
+  const [origem, setOrigem] = useState('');
+  const [destino, setDestino] = useState('');
+  const [data, setData] = useState('');
+  const [hora, setHora] = useState('');
+  const [tipoMudanca, setTipoMudanca] = useState('Casa');
+  const [categoria, setCategoria] = useState('');
+  const [dataHora, setDataHora] = useState(''); // formato yyyy-MM-dd HH:mm
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Atualiza automaticamente dataHora sempre que data ou hora mudar
+  useEffect(() => {
+    if (data && hora) {
+      setDataHora(`${data} ${hora}`);
+    }
+  }, [data, hora]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Mudança solicitada!');
+
+    const payload = {
+      origem,
+      destino,
+      dataHora,
+      tipoMudanca,
+      categoria
+    };
+
+    try {
+      setLoading(true)
+      await api.post('/mudancas', payload);
+      setLoading(false)
+      alert('Mudança solicitada com sucesso!');
+    } catch (error) {
+      console.error('Erro ao solicitar mudança:', error);
+      alert('Erro ao solicitar mudança');
+    }
   };
 
   return (
@@ -27,30 +54,30 @@ function RequestMove() {
               className="custom-input"
               type="text"
               placeholder="Origem"
-              value={origin}
-              onChange={(e) => setOrigin(e.target.value)}
+              value={origem}
+              onChange={(e) => setOrigem(e.target.value)}
               required
             />
             <input
               className="custom-input"
               type="text"
               placeholder="Destino"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
+              value={destino}
+              onChange={(e) => setDestino(e.target.value)}
               required
             />
             <input
               className="custom-input"
               type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
+              value={data}
+              onChange={(e) => setData(e.target.value)}
               required
             />
             <input
               className="custom-input"
               type="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
+              value={hora}
+              onChange={(e) => setHora(e.target.value)}
               required
             />
           </div>
@@ -59,20 +86,20 @@ function RequestMove() {
             <label>
               <input
                 type="radio"
-                name="type"
+                name="residencia"
                 value="Casa"
-                checked={housingType === 'Casa'}
-                onChange={(e) => setHousingType(e.target.value)}
+                checked={tipoMudanca === 'Casa'}
+                onChange={(e) => setTipoMudanca(e.target.value)}
               />
               Casa
             </label>
             <label>
               <input
                 type="radio"
-                name="type"
+                name="residencia"
                 value="Apartamento"
-                checked={housingType === 'Apartamento'}
-                onChange={(e) => setHousingType(e.target.value)}
+                checked={tipoMudanca === 'Apartamento'}
+                onChange={(e) => setTipoMudanca(e.target.value)}
               />
               Apartamento
             </label>
@@ -82,8 +109,8 @@ function RequestMove() {
             <label>Itens da mudança</label>
             <select
               className="custom-input"
-              value={selectedItems}
-              onChange={(e) => setSelectedItems(e.target.value)}
+              value={categoria}
+              onChange={(e) => setCategoria(e.target.value)}
               required
             >
               <option value="">Selecionar itens</option>
@@ -94,7 +121,7 @@ function RequestMove() {
           </div>
 
           <div className="form-button">
-            <Button type="submit">Solicitar</Button>
+            <Button type="submit" loading={loading}>Solicitar</Button>
           </div>
         </form>
       </div>

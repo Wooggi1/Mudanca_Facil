@@ -1,15 +1,25 @@
 import Modal from "../ModalPadrao/TemplateModal";
 import type { ModalSolicitarMudanca } from '../../../model/types'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../SolicitarMudanca/style.css";
+import { api } from "../../../services/apiClient";
+import { useAuth } from "../../../context/AuthContext";
 
 function SolicitarMudancaModal({ isOpen, onClose, onConfirm }: ModalSolicitarMudanca) {
   const [origem, setOrigem] = useState("");
   const [destino, setDestino] = useState("");
   const [data, setData] = useState<Date | null>(null);
   const [horario, setHorario] = useState<string>("");
-  const [tipoResidencia, setTipoResidencia] = useState("");
-  const [itemSelecionado, setItemSelecionado] = useState("");
+  const [tipoMudanca, setTipoMudanca] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [dataHora, setDataHora] = useState('')
+  const { user }  = useAuth()
+
+  useEffect(() => {
+    if (data && horario) {
+      setDataHora(`${data} ${horario}`);
+    }
+  }, [data, horario]);
 
   function handleChangeOrigem(e: React.ChangeEvent<HTMLInputElement>) {
     setOrigem(e.target.value);
@@ -29,20 +39,37 @@ function SolicitarMudancaModal({ isOpen, onClose, onConfirm }: ModalSolicitarMud
     setHorario(e.target.value);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const dados = {
-      id: Date.now().toString() + Math.random().toString(16).slice(2),
+
+    if (!data || !horario) {
+      alert("Preencha data e horário.");
+      return;
+    }
+
+    const formattedDate = data.toISOString().split("T")[0]; 
+    const combinedDateTime = `${formattedDate}T${horario}`; 
+
+    const payload = {
       origem,
       destino,
-      data,
-      horario,
-      tipoResidencia,
-      itemSelecionado,
+      dataHoraMudanca: new Date(combinedDateTime).toISOString(),
+      tipoMudanca: tipoMudanca.toUpperCase(),
+      categoria: categoria.toUpperCase(),
+      clienteId: user.id
     };
 
-    onConfirm(dados)
-    console.log("Solicitação de mudança:", dados);
+    try {
+      await api.post('/mudancas', payload);
+      alert('Mudança solicitada com sucesso!');
+      onClose(); // se quiser fechar o modal após sucesso
+    } catch (error) {
+      console.error('Erro ao solicitar mudança:', error);
+      alert('Erro ao solicitar mudança');
+    }
+
+    console.log("Solicitação de mudança:", payload);
+    return
     // Aqui você pode enviar os dados para uma API, por exemplo
   }
 
@@ -97,8 +124,8 @@ function SolicitarMudancaModal({ isOpen, onClose, onConfirm }: ModalSolicitarMud
               type="radio"
               name="residencia"
               value="casa"
-              checked={tipoResidencia === "casa"}
-              onChange={() => setTipoResidencia("casa")}
+              checked={tipoMudanca === "casa"}
+              onChange={() => setTipoMudanca("casa")}
               required
             />
             <span className="radio-label">Casa</span>
@@ -109,8 +136,8 @@ function SolicitarMudancaModal({ isOpen, onClose, onConfirm }: ModalSolicitarMud
               type="radio"
               name="residencia"
               value="apartamento"
-              checked={tipoResidencia === "apartamento"}
-              onChange={() => setTipoResidencia("apartamento")}
+              checked={tipoMudanca === "apartamento"}
+              onChange={() => setTipoMudanca("apartamento")}
             />
             <span className="radio-label">Apartamento</span>
           </label>
@@ -120,8 +147,8 @@ function SolicitarMudancaModal({ isOpen, onClose, onConfirm }: ModalSolicitarMud
           <label htmlFor="itens">Itens da mudança</label>
           <select
             id="itens"
-            value={itemSelecionado}
-            onChange={(e) => setItemSelecionado(e.target.value)}
+            value={categoria}
+            onChange={(e) => setCategoria(e.target.value)}
             required
           >
             <option value="">Selecionar itens</option>

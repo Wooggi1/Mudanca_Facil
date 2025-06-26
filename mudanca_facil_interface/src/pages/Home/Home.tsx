@@ -4,13 +4,13 @@ import './style.css';
 import { useState } from "react";
 import SolicitarMudancaModal from "../../components/modals/SolicitarMudanca/SolicitarMudaca";
 import type { SolicitarMudancaData } from "../../model/types";
-import MudancaAgendadaCard from "../../components/modals/MudancaAgendadaCard/mudancaAgendadaCard";
+import MudancaAgendadaCard from "../../components/modals/MudancaAgendadaCard/MudancaAgendadaCard";
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mudancas, setMudancas] = useState<SolicitarMudancaData[]>([]);
 
-  const adicionarMudanca = (novaMudanca: SolicitarMudancaData) => {
+  const adicionarMudanca = (novaMudanca: any) => {
     if (!novaMudanca) return;
 
     setMudancas(prev => [...prev, novaMudanca]);
