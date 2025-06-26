@@ -5,7 +5,7 @@ import "../SolicitarMudanca/style.css";
 import { api } from "../../../services/apiClient";
 import { useAuth } from "../../../context/AuthContext";
 
-function SolicitarMudancaModal({ isOpen, onClose, onConfirm }: ModalSolicitarMudanca) {
+function SolicitarMudancaModal({ isOpen, onClose }: ModalSolicitarMudanca) {
   const [origem, setOrigem] = useState("");
   const [destino, setDestino] = useState("");
   const [data, setData] = useState<Date | null>(null);

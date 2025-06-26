@@ -1,21 +1,29 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Button from "../../components/Button/Button";
 import './style.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SolicitarMudancaModal from "../../components/modals/SolicitarMudanca/SolicitarMudaca";
 import type { SolicitarMudancaData } from "../../model/types";
 import MudancaAgendadaCard from "../../components/modals/MudancaAgendadaCard/MudancaAgendadaCard";
+import { useAuth } from "../../context/AuthContext";
+import { api } from "../../services/apiClient";
 
 function Home() {
+  const { user } = useAuth()
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mudancas, setMudancas] = useState<SolicitarMudancaData[]>([]);
 
-  const adicionarMudanca = (novaMudanca: any) => {
-    if (!novaMudanca) return;
+  useEffect(() => {
+    if (!user?.id) return;
 
-    setMudancas(prev => [...prev, novaMudanca]);
-    setIsModalOpen(false)
-  };
+    api.get(`/mudancas/cliente/${user.id}`)
+      .then((res) => {
+        setMudancas(res.data); // <- Armazena os dados no estado
+      })
+      .catch((err) => {
+        console.error("Erro ao buscar mudanças:", err);
+      });
+  }, [user.id]); 
 
   return (
     <>
@@ -48,7 +56,6 @@ function Home() {
           <SolicitarMudancaModal 
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            onConfirm={adicionarMudanca}
           />
         </div>
       </div>

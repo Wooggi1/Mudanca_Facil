@@ -38,5 +38,4 @@ export interface ModalCadastroEmpresa {
 export interface ModalSolicitarMudanca {
   isOpen: boolean,
   onClose: () => void,
-  onConfirm: (dados: SolicitarMudancaData) => void
 }
